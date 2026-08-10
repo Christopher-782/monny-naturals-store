@@ -52,12 +52,44 @@ function blobConfigured() {
   return Boolean(process.env.BLOB_READ_WRITE_TOKEN);
 }
 
+
+const BUNDLED_ASSET_UPGRADES = {
+  '/uploads/hero/monny-hero-01.png': '/uploads/hero/monny-hero-01.webp',
+  '/uploads/hero/monny-hero-02.png': '/uploads/hero/monny-hero-02.webp',
+  '/uploads/about/monny-about-spa.png': '/uploads/about/monny-about.webp',
+  '/uploads/about/monny-about-main.png': '/uploads/about/monny-about.webp',
+  '/uploads/catalog/beetroot-soap.jpg': '/uploads/catalog/beetroot-soap.webp',
+  '/uploads/catalog/carrot-turmeric-soap.jpg': '/uploads/catalog/carrot-turmeric-soap.webp',
+  '/uploads/catalog/glow-lotion.jpg': '/uploads/catalog/glow-lotion.webp',
+  '/uploads/catalog/glow-shower-gel.jpg': '/uploads/catalog/glow-shower-gel.webp',
+  '/uploads/catalog/hair-butter.jpg': '/uploads/catalog/hair-butter.webp',
+  '/uploads/catalog/hair-shampoo.jpg': '/uploads/catalog/hair-shampoo.webp',
+  '/uploads/catalog/herbal-growth-oil-1.jpg': '/uploads/catalog/herbal-growth-oil-1.webp',
+  '/uploads/catalog/herbal-growth-oil-2.jpg': '/uploads/catalog/herbal-growth-oil-2.webp',
+  '/uploads/catalog/monny-beauty-cream.jpg': '/uploads/catalog/monny-beauty-cream.webp',
+  '/uploads/catalog/moringa-soap.jpg': '/uploads/catalog/moringa-soap.webp',
+  '/uploads/catalog/oatmeal-soap.jpg': '/uploads/catalog/oatmeal-soap.webp',
+  '/uploads/catalog/pure-coconut-oil.jpg': '/uploads/catalog/pure-coconut-oil.webp',
+  '/uploads/catalog/skin-brightening-oil.jpg': '/uploads/catalog/skin-brightening-oil.webp',
+  '/uploads/catalog/whitening-cream.jpg': '/uploads/catalog/whitening-cream.webp',
+  '/uploads/catalog/whitening-shower-gel.jpg': '/uploads/catalog/whitening-shower-gel.webp'
+};
+
+function upgradeBundledAssets(value) {
+  if (typeof value === 'string') return BUNDLED_ASSET_UPGRADES[value] || value;
+  if (Array.isArray(value)) return value.map(upgradeBundledAssets);
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, upgradeBundledAssets(item)]));
+  }
+  return value;
+}
+
 function readLocalContent() {
   return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8'));
 }
 
 async function readContent() {
-  if (!blobConfigured()) return readLocalContent();
+  if (!blobConfigured()) return upgradeBundledAssets(readLocalContent());
 
   try {
     const { list } = await import('@vercel/blob');
@@ -66,14 +98,14 @@ async function readContent() {
       .filter((blob) => blob.pathname.endsWith('.json'))
       .sort((a, b) => b.pathname.localeCompare(a.pathname))[0];
 
-    if (!latest) return readLocalContent();
+    if (!latest) return upgradeBundledAssets(readLocalContent());
 
     const response = await fetch(latest.url, { cache: 'no-store' });
     if (!response.ok) throw new Error(`Blob content fetch failed with ${response.status}`);
-    return await response.json();
+    return upgradeBundledAssets(await response.json());
   } catch (error) {
     console.error('Could not read CMS content from Vercel Blob:', error);
-    return readLocalContent();
+    return upgradeBundledAssets(readLocalContent());
   }
 }
 

@@ -32,7 +32,7 @@ export default function CollectionShowcase({ section }) {
         {items.map((product) => (
           <Link className="catalog-showcase-card" key={product.id} to={`/products/${product.id}`}>
             <div className="catalog-showcase-image-wrap">
-              <img src={product.image} alt={product.name} loading="lazy" />
+              <img src={product.image} alt={product.name} loading="lazy" decoding="async" />
             </div>
             <div className="catalog-showcase-card-copy">
               <small>{product.category}</small>

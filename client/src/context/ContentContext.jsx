@@ -14,8 +14,8 @@ const defaultStore = {
 };
 
 const defaultHomepage = {
-  philosophyImage: '/uploads/about/monny-about-spa.png',
-  philosophyPersonImage: '/uploads/about/monny-about-spa.png',
+  philosophyImage: '/uploads/about/monny-about.webp',
+  philosophyPersonImage: '/uploads/about/monny-about.webp',
   categoryEyebrow: 'Shop products',
   categoryTitle: 'Skin & Hair Essentials',
   featuredEyebrow: 'Customer favourites',
@@ -61,13 +61,13 @@ const fallbackCatalogSections = [
     text: 'Discover Monny Naturals skin essentials, from brightening soaps and nourishing shower gels to glow-boosting oils.',
     category: 'Skin Products',
     items: [
-      { id: 'skin-01', name: 'OatHoney Soap', image: '/uploads/catalog/oatmeal-soap.jpg' },
-      { id: 'skin-02', name: 'Carrot Turmeric Soap', image: '/uploads/catalog/carrot-turmeric-soap.jpg' },
-      { id: 'skin-03', name: 'Beetroot Soap', image: '/uploads/catalog/beetroot-soap.jpg' },
-      { id: 'skin-04', name: 'Moringa Soap', image: '/uploads/catalog/moringa-soap.jpg' },
-      { id: 'skin-05', name: 'Whitening Shower Gel', image: '/uploads/catalog/whitening-shower-gel.jpg' },
-      { id: 'skin-06', name: 'Glow Shower Gel', image: '/uploads/catalog/glow-shower-gel.jpg' },
-      { id: 'skin-07', name: 'Skin Brightening Oil', image: '/uploads/catalog/skin-brightening-oil.jpg' }
+      { id: 'skin-01', name: 'OatHoney Soap', image: '/uploads/catalog/oatmeal-soap.webp' },
+      { id: 'skin-02', name: 'Carrot Turmeric Soap', image: '/uploads/catalog/carrot-turmeric-soap.webp' },
+      { id: 'skin-03', name: 'Beetroot Soap', image: '/uploads/catalog/beetroot-soap.webp' },
+      { id: 'skin-04', name: 'Moringa Soap', image: '/uploads/catalog/moringa-soap.webp' },
+      { id: 'skin-05', name: 'Whitening Shower Gel', image: '/uploads/catalog/whitening-shower-gel.webp' },
+      { id: 'skin-06', name: 'Glow Shower Gel', image: '/uploads/catalog/glow-shower-gel.webp' },
+      { id: 'skin-07', name: 'Skin Brightening Oil', image: '/uploads/catalog/skin-brightening-oil.webp' }
     ]
   },
   {
@@ -77,11 +77,11 @@ const fallbackCatalogSections = [
     text: 'Build a complete Monny Naturals hair routine with shampoos, oils, butter and daily moisture essentials.',
     category: 'Hair Products',
     items: [
-      { id: 'hair-01', name: 'Premium Hair Shampoo', image: '/uploads/catalog/hair-shampoo.jpg' },
-      { id: 'hair-02', name: 'Coconut Oil', image: '/uploads/catalog/pure-coconut-oil.jpg' },
-      { id: 'hair-03', name: 'Herbal Hair Growth Oil', image: '/uploads/catalog/herbal-growth-oil-1.jpg' },
-      { id: 'hair-04', name: 'Hair Butter', image: '/uploads/catalog/hair-butter.jpg' },
-      { id: 'hair-05', name: 'Black Soap Shampoo', image: '/uploads/catalog/hair-shampoo.jpg' }
+      { id: 'hair-01', name: 'Premium Hair Shampoo', image: '/uploads/catalog/hair-shampoo.webp' },
+      { id: 'hair-02', name: 'Coconut Oil', image: '/uploads/catalog/pure-coconut-oil.webp' },
+      { id: 'hair-03', name: 'Herbal Hair Growth Oil', image: '/uploads/catalog/herbal-growth-oil-1.webp' },
+      { id: 'hair-04', name: 'Hair Butter', image: '/uploads/catalog/hair-butter.webp' },
+      { id: 'hair-05', name: 'Black Soap Shampoo', image: '/uploads/catalog/hair-shampoo.webp' }
     ]
   }
 ];

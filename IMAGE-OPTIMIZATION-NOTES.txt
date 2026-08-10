@@ -1,0 +1,16 @@
+MONNY NATURALS - FULL IMAGE OPTIMIZATION
+
+What changed
+- Bundled image payload reduced from about 11.24 MB to about 1.57 MB (~86% smaller).
+- Product catalogue images converted from 1400px JPEGs to optimized 1000px WebP.
+- About-page duplicate PNGs consolidated into one optimized WebP.
+- Hero WebPs recompressed while preserving strong display quality.
+- Logo moved from an external Cloudinary PNG to a local optimized transparent WebP.
+- Unused design-reference.png removed from production assets.
+- Lazy loading + async decoding added to offscreen product/category/about/cart images.
+- Main product image remains eager/high priority.
+- Existing CMS/Blob content using the old JPG/PNG bundled paths is automatically remapped by server.js.
+- Admin image upload optimization remains enabled for future uploads.
+
+Important
+If applying the optimization PATCH over an existing Git repository, run the included cleanup-old-images.ps1 once after extraction, then commit with git add -A so deleted legacy images are removed from Git.

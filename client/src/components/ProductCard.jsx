@@ -41,7 +41,7 @@ export default function ProductCard({ product, onQuickView, descriptionMode = 'd
     >
       <div className="product-media">
         <Link to={`/products/${product.id}`}>
-          <img src={product.image} alt={product.name} loading="lazy" />
+          <img src={product.image} alt={product.name} loading="lazy" decoding="async" />
         </Link>
         <span className="product-badge">{product.category}</span>
         <div className="card-icons">

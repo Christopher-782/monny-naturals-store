@@ -5,4 +5,4 @@ export const DELIVERY_FEE = 3000;
 export const FREE_SHIPPING_THRESHOLD = 30000;
 
 // Official Monny Naturals logo. Used everywhere through the shared <Logo /> component.
-export const BRAND_LOGO_URL = 'https://res.cloudinary.com/deoqw88yb/image/upload/v1786019503/logo-removebg-preview_xeiexc.png';
+export const BRAND_LOGO_URL = '/logo.webp';

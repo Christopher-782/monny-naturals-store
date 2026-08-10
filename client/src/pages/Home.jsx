@@ -30,7 +30,7 @@ export default function Home() {
         <div className="category-grid">
           {categories.map((category) => (
             <Link className="category-card" key={category.name} to={`/category/${encodeURIComponent(category.name)}`}>
-              <img src={category.image} alt={category.name}/>
+              <img src={category.image} alt={category.name} loading="lazy" decoding="async"/>
               <div><strong>{category.name}</strong><small>{categoryCount(category.name)} products</small><span>Shop now →</span></div>
             </Link>
           ))}
@@ -47,7 +47,7 @@ export default function Home() {
       </section>
 
       <section className="philosophy-section">
-        <div className="philosophy-image"><img src={homepage.philosophyImage} alt="Botanical natural skincare"/></div>
+        <div className="philosophy-image"><img src={homepage.philosophyImage} alt="Botanical natural skincare" loading="lazy" decoding="async"/></div>
         <div className="philosophy-copy">
           <span className="eyebrow">{homepage.philosophyEyebrow}</span>
           <h2>{homepage.philosophyTitle}</h2>
@@ -60,7 +60,7 @@ export default function Home() {
             })}
           </div>
         </div>
-        <div className="philosophy-person"><img src={homepage.philosophyPersonImage} alt="Woman enjoying a natural skincare ritual"/></div>
+        <div className="philosophy-person"><img src={homepage.philosophyPersonImage} alt="Woman enjoying a natural skincare ritual" loading="lazy" decoding="async"/></div>
       </section>
 
       {!!testimonials.length && <section className="section testimonials container">

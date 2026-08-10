@@ -30,7 +30,7 @@ export default function ProductDetails() {
     <section className="page-shell container product-detail-page">
       <div className="breadcrumbs"><Link to="/">Home</Link><span>/</span><Link to="/products">Products</Link><span>/</span><span>{product.name}</span></div>
       <div className="product-detail-grid">
-        <div className="detail-gallery"><div className="main-image"><img src={product.image} alt={product.name}/></div><div className="thumb-row">{[product.image, product.image, product.image].map((image, i) => <button key={i}><img src={image} alt=""/></button>)}</div></div>
+        <div className="detail-gallery"><div className="main-image"><img src={product.image} alt={product.name} loading="eager" decoding="async" fetchPriority="high"/></div><div className="thumb-row">{[product.image, product.image, product.image].map((image, i) => <button key={i}><img src={image} alt="" loading="lazy" decoding="async"/></button>)}</div></div>
         <div className="detail-copy">
           <span className="eyebrow">{product.category}</span><h1>{product.name}</h1>
           <div className="rating-row"><span className="stars">{[1,2,3,4,5].map((n) => <Star key={n} size={16} fill="currentColor"/>)}</span><span>{product.rating} ({product.reviews} reviews)</span></div>

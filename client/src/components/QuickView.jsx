@@ -53,7 +53,7 @@ export default function QuickView({ product, onClose }) {
         </button>
 
         <div className="quick-modal-media">
-          <img src={product.image} alt={product.name} />
+          <img src={product.image} alt={product.name} decoding="async" />
         </div>
 
         <div className="quick-modal-content">
