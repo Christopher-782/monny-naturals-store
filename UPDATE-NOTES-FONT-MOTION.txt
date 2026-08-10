@@ -1,0 +1,9 @@
+Monny Naturals font + motion upgrade
+
+- Premium serif headings/product names: Cormorant Garamond
+- Modern body/UI font: Manrope
+- Smoother hero crossfades and image scaling
+- Softer button, navigation, category and product-card motion
+- Best Seller descriptions now expand/collapse without display:none jumps
+- Mobile descriptions remain tap-controlled
+- Added reduced-motion accessibility support

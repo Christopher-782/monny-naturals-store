@@ -1,0 +1,26 @@
+MONNY NATURALS — SKIN + HAIR SECTION UPDATE
+
+Updated in this build:
+- Added all 10 supplied skin/body product photos.
+- Added all 5 supplied hair product photos.
+- Added a new responsive "Skin & Body Essentials" homepage section.
+- Added a new responsive "Hair Growth & Care" homepage section.
+- Updated the Skincare and Haircare category-card images to use supplied Monny Naturals photography.
+- Added admin CMS controls under /admin > Homepage > Skin & hair collection sections.
+- Client can replace collection photos by upload or URL, edit card names, headings, descriptions and linked category.
+- Collection images are optimized and stored under uploads/catalog/.
+- Preserves the Cloudinary Monny Naturals logo and Windows/Node 24 dev.js fix.
+
+Run:
+1. npm run install:all
+2. npm run dev
+3. Website: http://localhost:5173
+4. Admin: http://localhost:5173/admin
+
+LATEST UPDATE — TWO CATEGORIES + NEW HERO IMAGES
+- Store categories reduced to exactly two visible categories: Skin Products and Hair Products.
+- Existing product records reclassified into one of those two categories.
+- Homepage category grid redesigned for two large collection cards.
+- Hero carousel now uses the two supplied Monny Naturals banner images.
+- Hero layout preserves the supplied artwork on desktop while remaining responsive on mobile.
+- Skin/Hair showcase sections now link to the matching two categories.

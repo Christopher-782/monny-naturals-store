@@ -1,0 +1,417 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "OatHoney Soap",
+      "category": "Skin Products",
+      "price": 3500,
+      "image": "/uploads/catalog/oatmeal-soap.jpg",
+      "description": "Experience the perfect blend of gentle exfoliation and deep nourishment with MonnyNaturals OatHoney Soap. Handmade in small batches with finely ground oats and pure honey, this luxurious soap gently removes dead skin cells, cleanses impurities, and leaves your skin feeling soft, smooth, and refreshed. Its rich, creamy lather helps maintain your skin's natural moisture, making it an excellent choice for a healthy, radiant complexion and everyday skincare.",
+      "rating": 5,
+      "reviews": 41,
+      "stock": 24,
+      "featured": true,
+      "newest": true,
+      "bestSelling": true,
+      "ingredients": "Finely ground oats, pure honey and a skin-loving handmade soap base.",
+      "benefits": "Gently exfoliates, cleanses impurities and helps maintain the skin's natural moisture for a soft, radiant complexion.",
+      "usage": "Lather with water, massage over face and body, then rinse thoroughly. Suitable for everyday skincare."
+    },
+    {
+      "id": 2,
+      "name": "Carrot Turmeric Soap",
+      "category": "Skin Products",
+      "price": 3500,
+      "image": "/uploads/catalog/carrot-turmeric-soap.jpg",
+      "description": "Bring out your skin's natural glow with MonnyNaturals Carrot Turmeric Soap. Handmade in small batches with the nourishing goodness of carrot and turmeric, this luxurious soap gently cleanses, moisturizes, and revitalizes the skin while helping to improve the appearance of dull, uneven-looking skin. Rich in natural antioxidants, it leaves your skin feeling soft, smooth, refreshed, and beautifully radiant with every wash. Suitable for daily use on the face and body. It is a skin brightening soap.",
+      "rating": 5,
+      "reviews": 38,
+      "stock": 26,
+      "featured": true,
+      "newest": true,
+      "bestSelling": true,
+      "ingredients": "Carrot, turmeric and a handmade soap base enriched with nourishing botanical ingredients.",
+      "benefits": "Helps cleanse, moisturize and brighten the look of dull, uneven-looking skin while supporting a refreshed, radiant finish.",
+      "usage": "Use daily on the face and body. Lather with water, apply gently to skin and rinse clean."
+    },
+    {
+      "id": 3,
+      "name": "Beetroot Soap",
+      "category": "Skin Products",
+      "price": 3500,
+      "image": "/uploads/catalog/beetroot-soap.jpg",
+      "description": "Revitalize your skin with MonnyNaturals Beetroot Soap, a handmade beauty bar crafted in small batches with the natural goodness of beetroot and skin-nourishing oils. Rich in natural antioxidants, this luxurious soap gently cleanses while helping to improve the appearance of dull, tired-looking skin. It leaves your skin feeling soft, hydrated, refreshed, and naturally radiant after every wash, making it the perfect choice for your daily skincare routine.",
+      "rating": 5,
+      "reviews": 34,
+      "stock": 27,
+      "featured": true,
+      "newest": false,
+      "bestSelling": true,
+      "ingredients": "Beetroot, skin-nourishing oils and a handmade soap base.",
+      "benefits": "Gently cleanses, helps revive the look of dull skin and leaves the skin soft, hydrated and refreshed.",
+      "usage": "Lather with water, massage over the skin and rinse thoroughly. Perfect for daily use."
+    },
+    {
+      "id": 4,
+      "name": "Moringa Soap",
+      "category": "Skin Products",
+      "price": 10000,
+      "image": "/uploads/catalog/moringa-soap.jpg",
+      "description": "Give your skin the care it deserves with MonnyNaturals Moringa Soap. Handmade in small batches with the nourishing goodness of moringa, pure honey, and neem leaves, this premium moisturizing soap gently cleanses while helping to keep the skin soft, smooth, and well-hydrated. Its rich blend of botanical ingredients makes it suitable for both children and adults, providing a gentle yet luxurious cleansing experience that leaves the skin feeling refreshed, healthy, and naturally radiant every day.",
+      "rating": 4.9,
+      "reviews": 22,
+      "stock": 18,
+      "featured": true,
+      "newest": false,
+      "bestSelling": false,
+      "ingredients": "Moringa, pure honey, neem leaves and a moisturizing handmade soap base.",
+      "benefits": "Gently cleanses while helping to keep the skin soft, smooth, hydrated and comfortable for everyday use.",
+      "usage": "Lather with water, massage onto wet skin and rinse thoroughly. Suitable for children and adults."
+    },
+    {
+      "id": 5,
+      "name": "Whitening Shower Gel",
+      "category": "Skin Products",
+      "price": 15000,
+      "image": "/uploads/catalog/whitening-shower-gel.jpg",
+      "description": "Achieve a brighter, more radiant complexion with MonnyNaturals Whitening Shower Gel. Handmade with carefully selected skin-loving ingredients, this luxurious shower gel gently cleanses, deeply moisturizes, and helps improve the appearance of dull, uneven-looking skin. Its rich, refreshing lather leaves your skin feeling clean, soft, smooth, and naturally glowing after every bath, making it the perfect addition to your daily skincare routine.",
+      "rating": 5,
+      "reviews": 47,
+      "stock": 19,
+      "featured": true,
+      "newest": true,
+      "bestSelling": true,
+      "ingredients": "Skin-loving cleansing ingredients, moisturizing agents and nourishing botanicals.",
+      "benefits": "Gently cleanses, deeply moisturizes and helps improve the appearance of dull, uneven-looking skin.",
+      "usage": "Apply to wet skin or a bath sponge, work into a rich lather and rinse thoroughly after bathing."
+    },
+    {
+      "id": 6,
+      "name": "Glow Shower Gel",
+      "category": "Skin Products",
+      "price": 10000,
+      "image": "/uploads/catalog/glow-shower-gel.jpg",
+      "description": "Enhance your skin's natural radiance with MonnyNaturals Glow Shower Gel. Handmade with carefully selected nourishing ingredients, this gentle shower gel effectively cleanses away dirt and impurities while helping to keep your skin soft, hydrated, and healthy-looking. Its rich, refreshing lather leaves your skin feeling silky smooth, refreshed, and beautifully radiant after every bath, making it perfect for everyday use.",
+      "rating": 4.9,
+      "reviews": 29,
+      "stock": 21,
+      "featured": false,
+      "newest": true,
+      "bestSelling": false,
+      "ingredients": "Nourishing cleansing ingredients and hydrating botanicals.",
+      "benefits": "Cleanses away dirt and impurities while helping the skin feel soft, hydrated and naturally radiant.",
+      "usage": "Use during bathing by applying to wet skin, lathering gently and rinsing clean."
+    },
+    {
+      "id": 7,
+      "name": "Premium Hair Shampoo",
+      "category": "Hair Products",
+      "price": 15000,
+      "image": "/uploads/catalog/hair-shampoo.jpg",
+      "description": "Restore your hair's natural beauty with MonnyNaturals Premium Hair Shampoo. Handmade with carefully selected nourishing ingredients, this gentle shampoo effectively cleanses the scalp, removes product build-up, and leaves your hair feeling fresh, soft, and healthy. Its moisturizing formula helps reduce dryness while promoting stronger, shinier, and more manageable hair, making it suitable for all hair types and regular use. Made with herbs and honey to help your hair grow naturally.",
+      "rating": 5,
+      "reviews": 35,
+      "stock": 16,
+      "featured": true,
+      "newest": true,
+      "bestSelling": true,
+      "ingredients": "Herbs, honey and nourishing cleansing ingredients.",
+      "benefits": "Cleanses the scalp, removes build-up, helps reduce dryness and supports stronger, shinier and more manageable hair.",
+      "usage": "Apply to wet hair and scalp, massage gently into a lather and rinse thoroughly. Repeat if needed."
+    },
+    {
+      "id": 8,
+      "name": "Coconut Oil",
+      "category": "Hair Products",
+      "price": 12000,
+      "image": "/uploads/catalog/pure-coconut-oil.jpg",
+      "description": "Nourish your hair and skin naturally with MonnyNaturals Coconut Oil. Carefully sourced from premium-quality coconuts, this multi-purpose oil deeply moisturizes, softens, and helps restore your hair and skin's natural beauty. It helps reduce dryness, improves shine, and leaves your hair stronger and more manageable while keeping your skin smooth, supple, and radiant. Perfect for everyday use by the whole family.",
+      "rating": 4.9,
+      "reviews": 28,
+      "stock": 23,
+      "featured": false,
+      "newest": true,
+      "bestSelling": true,
+      "ingredients": "Premium-quality pure coconut oil.",
+      "benefits": "Deeply moisturizes, softens, improves shine and helps keep hair and skin stronger, smoother and more supple.",
+      "usage": "Use as a daily hair oil, scalp oil or skin moisturizer. Apply a small amount and massage in gently."
+    },
+    {
+      "id": 9,
+      "name": "Herbal Hair Growth Oil",
+      "category": "Hair Products",
+      "price": 12000,
+      "image": "/uploads/catalog/herbal-growth-oil-1.jpg",
+      "description": "Transform your hair naturally with MonnyNaturals Herbal Hair Growth Oil. Handmade in small batches with a powerful blend of nourishing herbs and premium natural oils, this lightweight formula helps nourish the scalp, strengthen hair from the roots, and support healthy hair growth. It helps reduce dryness and breakage while leaving your hair softer, fuller, shinier, and more manageable. Suitable for all hair types and ideal for regular use. Perfect for scalp massaging and hot oil treatment.",
+      "rating": 5,
+      "reviews": 45,
+      "stock": 20,
+      "featured": true,
+      "newest": false,
+      "bestSelling": true,
+      "ingredients": "Nourishing herbs and premium natural oils.",
+      "benefits": "Helps nourish the scalp, strengthen hair from the roots, reduce dryness and breakage and support healthy hair growth.",
+      "usage": "Apply directly to the scalp and hair, massage gently and use regularly. Suitable for scalp massage and hot oil treatments."
+    },
+    {
+      "id": 10,
+      "name": "Hair Butter",
+      "category": "Hair Products",
+      "price": 7000,
+      "image": "/uploads/catalog/hair-butter.jpg",
+      "description": "Treat your hair to intense moisture with MonnyNaturals Hair Butter. Handmade in small batches with a rich blend of natural butters and nourishing oils, this lightweight formula helps seal in moisture, soften dry hair, and reduce breakage. It leaves your hair feeling smooth, healthy, and more manageable while enhancing its natural shine. Perfect for daily moisturizing, protective styles, twists, braids, and all hair types. Perfect for kids and adults.",
+      "rating": 4.9,
+      "reviews": 31,
+      "stock": 22,
+      "featured": false,
+      "newest": true,
+      "bestSelling": false,
+      "ingredients": "Natural butters and nourishing oils.",
+      "benefits": "Helps seal in moisture, soften dry hair, reduce breakage and improve manageability and shine.",
+      "usage": "Apply a small amount to dry or damp hair daily, especially on twists, braids, protective styles and the ends of the hair."
+    },
+    {
+      "id": 11,
+      "name": "Black Soap Shampoo",
+      "category": "Hair Products",
+      "price": 8000,
+      "image": "/uploads/catalog/hair-shampoo.jpg",
+      "description": "Give your hair the natural care it deserves with MonnyNaturals Black Soap Shampoo. Handmade in small batches with traditional African black soap, nourishing herbs, and premium natural ingredients, this gentle shampoo effectively cleanses the scalp, removes product build-up, and helps maintain a healthy scalp environment. It leaves your hair feeling clean, soft, refreshed, and more manageable while supporting stronger, healthier-looking hair. Suitable for both natural and relaxed hair. Made with honey, black soap, herbs and oils.",
+      "rating": 4.8,
+      "reviews": 18,
+      "stock": 15,
+      "featured": false,
+      "newest": true,
+      "bestSelling": false,
+      "ingredients": "African black soap, honey, herbs, oils and premium cleansing ingredients.",
+      "benefits": "Cleanses the scalp, removes build-up, supports a healthy scalp environment and leaves hair soft, refreshed and more manageable.",
+      "usage": "Apply to wet hair and scalp, massage gently to cleanse thoroughly and rinse out. Suitable for natural and relaxed hair."
+    },
+    {
+      "id": 12,
+      "name": "Skin Brightening Oil",
+      "category": "Skin Products",
+      "price": 12000,
+      "image": "/uploads/catalog/skin-brightening-oil.jpg",
+      "description": "Reveal your skin's natural radiance with MonnyNaturals Skin Brightening Oil. Handmade in small batches with a luxurious blend of nourishing botanical oils, this lightweight formula deeply moisturizes while helping to improve the appearance of dull and uneven-looking skin. It absorbs easily without feeling greasy, leaving your skin soft, smooth, glowing, and beautifully nourished. Suitable for all skin types and perfect for everyday use.",
+      "rating": 5,
+      "reviews": 40,
+      "stock": 25,
+      "featured": true,
+      "newest": true,
+      "bestSelling": true,
+      "ingredients": "A luxurious blend of nourishing botanical oils.",
+      "benefits": "Deeply moisturizes, helps improve the look of dull and uneven-looking skin and leaves skin soft, smooth and glowing.",
+      "usage": "Apply a small amount to clean skin and massage in gently until absorbed. Suitable for everyday use."
+    }
+  ],
+  "categories": [
+    {
+      "name": "Skin Products",
+      "image": "/uploads/catalog/oatmeal-soap.jpg"
+    },
+    {
+      "name": "Hair Products",
+      "image": "/uploads/catalog/hair-shampoo.jpg"
+    }
+  ],
+  "heroSlides": [
+    {
+      "image": "/uploads/hero/monny-hero-01.png",
+      "kicker": "BOTANICAL BEAUTY, ELEVATED",
+      "title": "Nature-crafted rituals for radiant skin & thriving hair.",
+      "text": "Handmade in thoughtful batches with botanicals, nourishing oils and time-honoured ingredients, Monny Naturals turns everyday care into a beautifully indulgent ritual.",
+      "ctaLabel": "Shop Best Sellers",
+      "ctaLink": "/products",
+      "secondaryLabel": "Explore Skin Care",
+      "secondaryLink": "/category/Skin%20Products",
+      "trustText": "Handmade \u2022 Botanical \u2022 Made with care in Nigeria"
+    },
+    {
+      "image": "/uploads/hero/monny-hero-02.png",
+      "kicker": "PURE CARE. BEAUTIFUL RESULTS.",
+      "title": "Rooted in nature. Refined for your everyday glow.",
+      "text": "From brightening soaps and body care to nourishing oils and hair essentials, discover simple rituals designed to leave you feeling beautifully cared for.",
+      "ctaLabel": "Shop Skin Products",
+      "ctaLink": "/category/Skin%20Products",
+      "secondaryLabel": "Shop Hair Products",
+      "secondaryLink": "/category/Hair%20Products",
+      "trustText": "Skin-loving essentials \u2022 Hair nourishment \u2022 Everyday confidence"
+    }
+  ],
+  "homepage": {
+    "philosophyImage": "/uploads/about/monny-about-spa.png",
+    "philosophyPersonImage": "/uploads/about/monny-about-spa.png",
+    "categoryEyebrow": "Shop products",
+    "categoryTitle": "Skin & Hair Essentials",
+    "featuredEyebrow": "Customer favourites",
+    "featuredTitle": "Best Sellers, Naturally Loved",
+    "philosophyEyebrow": "Why choose Monny Naturals?",
+    "philosophyTitle": "Beauty that's natural, sustainable & empowering.",
+    "philosophyText": "We believe true beauty comes from nature. Our products are carefully crafted with the finest natural ingredients to nourish your skin, uplift your spirit and empower your natural glow every day.",
+    "philosophyPoints": [
+      {
+        "title": "Natural Ingredients",
+        "text": "Sourced from the best of nature."
+      },
+      {
+        "title": "Sustainable Beauty",
+        "text": "Good for you, good for the planet."
+      },
+      {
+        "title": "Empowering You",
+        "text": "Because every woman deserves to glow."
+      }
+    ],
+    "testimonialsEyebrow": "Loved by our community",
+    "testimonialsTitle": "Real glow stories",
+    "checkoutEyebrow": "Easy checkout via WhatsApp",
+    "checkoutTitle": "Add products to your cart and checkout.",
+    "checkoutText": "Your order will be sent directly to us on WhatsApp for confirmation.",
+    "newsletterEyebrow": "Stay glowing",
+    "newsletterText": "Subscribe to get updates on new products, exclusive offers and natural beauty tips.",
+    "heroRotationSeconds": 2
+  },
+  "store": {
+    "brandName": "Monny Naturals",
+    "tagline": "Natural beauty. Real results.",
+    "whatsappNumber": "08067823352",
+    "deliveryFee": 3000,
+    "freeShippingThreshold": 30000,
+    "email": "hello@monnynaturals.com",
+    "location": "Lagos, Nigeria",
+    "customerCareHours": "Monday \u2013 Saturday, 9am \u2013 6pm",
+    "announcementText": "\ud83c\udf3f FREE SHIPPING ON ALL ORDERS ABOVE \u20a630,000"
+  },
+  "testimonials": [
+    {
+      "id": 1,
+      "name": "Amaka T.",
+      "text": "Monny Naturals changed my skin completely! My face has never felt this healthy and glowing before.",
+      "rating": 5
+    },
+    {
+      "id": 2,
+      "name": "Blessing K.",
+      "text": "I love that the products feel natural and actually work. The packaging is beautiful and eco-friendly too!",
+      "rating": 5
+    },
+    {
+      "id": 3,
+      "name": "Funmi A.",
+      "text": "Fast delivery, amazing products and top-notch customer service. I am a customer for life!",
+      "rating": 5
+    }
+  ],
+  "benefits": [
+    {
+      "title": "100% Natural",
+      "text": "Made with natural ingredients"
+    },
+    {
+      "title": "Clean & Safe",
+      "text": "No harmful chemicals, parabens or toxins"
+    },
+    {
+      "title": "Sustainable",
+      "text": "Eco-friendly packaging and practices"
+    },
+    {
+      "title": "Cruelty Free",
+      "text": "We don't test on animals, ever"
+    }
+  ],
+  "catalogSections": [
+    {
+      "id": "skin-products",
+      "eyebrow": "Shop products",
+      "title": "Skin Products",
+      "text": "Discover Monny Naturals skin essentials, from brightening soaps and nourishing shower gels to glow-boosting oils.",
+      "category": "Skin Products",
+      "items": [
+        {
+          "id": "skin-01",
+          "name": "OatHoney Soap",
+          "image": "/uploads/catalog/oatmeal-soap.jpg"
+        },
+        {
+          "id": "skin-02",
+          "name": "Carrot Turmeric Soap",
+          "image": "/uploads/catalog/carrot-turmeric-soap.jpg"
+        },
+        {
+          "id": "skin-03",
+          "name": "Beetroot Soap",
+          "image": "/uploads/catalog/beetroot-soap.jpg"
+        },
+        {
+          "id": "skin-04",
+          "name": "Moringa Soap",
+          "image": "/uploads/catalog/moringa-soap.jpg"
+        },
+        {
+          "id": "skin-05",
+          "name": "Whitening Shower Gel",
+          "image": "/uploads/catalog/whitening-shower-gel.jpg"
+        },
+        {
+          "id": "skin-06",
+          "name": "Glow Shower Gel",
+          "image": "/uploads/catalog/glow-shower-gel.jpg"
+        },
+        {
+          "id": "skin-07",
+          "name": "Skin Brightening Oil",
+          "image": "/uploads/catalog/skin-brightening-oil.jpg"
+        }
+      ],
+      "limit": 6,
+      "dynamicProducts": true
+    },
+    {
+      "id": "hair-products",
+      "eyebrow": "Shop products",
+      "title": "Hair Products",
+      "text": "Build a complete Monny Naturals hair routine with shampoos, oils, butter and daily moisture essentials.",
+      "category": "Hair Products",
+      "items": [
+        {
+          "id": "hair-01",
+          "name": "Premium Hair Shampoo",
+          "image": "/uploads/catalog/hair-shampoo.jpg"
+        },
+        {
+          "id": "hair-02",
+          "name": "Coconut Oil",
+          "image": "/uploads/catalog/pure-coconut-oil.jpg"
+        },
+        {
+          "id": "hair-03",
+          "name": "Herbal Hair Growth Oil",
+          "image": "/uploads/catalog/herbal-growth-oil-1.jpg"
+        },
+        {
+          "id": "hair-04",
+          "name": "Hair Butter",
+          "image": "/uploads/catalog/hair-butter.jpg"
+        },
+        {
+          "id": "hair-05",
+          "name": "Black Soap Shampoo",
+          "image": "/uploads/catalog/hair-shampoo.jpg"
+        }
+      ],
+      "limit": 6,
+      "dynamicProducts": true
+    }
+  ],
+  "theme": {
+    "forest": "#234d1f",
+    "green": "#6fad2d",
+    "cream": "#fbfbe9",
+    "beige": "#edf5cf",
+    "gold": "#e2d326",
+    "text": "#17301a",
+    "pageBackground": "#fcfef3"
+  }
+}

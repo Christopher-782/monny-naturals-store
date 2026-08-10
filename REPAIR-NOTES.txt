@@ -1,0 +1,11 @@
+MONNY NATURALS - animation/display repair
+
+Fixed:
+- sections becoming invisible in React StrictMode
+- IntersectionObserver being disconnected while data-motion state remained on DOM nodes
+- CMS-rendered sections not being registered reliably for scroll animations
+- incorrect collection animation selector
+- overly heavy blur reveal animation
+
+Best Sellers still use the dynamic hover/tap description reveal.
+All existing CMS, products, images, theme, hero and admin features are retained.

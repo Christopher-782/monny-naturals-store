@@ -1,0 +1,5 @@
+This update changes the Monny Naturals website to:
+- use a brighter green/yellow theme inspired by the new hero image
+- replace product data with the provided skin and hair product list
+- update the homepage Best Sellers section
+- update the Shop Products collections and product descriptions

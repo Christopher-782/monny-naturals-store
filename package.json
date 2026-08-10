@@ -1,0 +1,23 @@
+{
+  "name": "monny-naturals-store",
+  "private": true,
+  "version": "3.0.0",
+  "description": "Monny Naturals ecommerce website with WhatsApp checkout and Vercel-ready admin CMS",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node dev.js",
+    "server": "node server.js",
+    "client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build",
+    "vercel-build": "npm --prefix client ci && npm --prefix client run build",
+    "start": "node server.js --production",
+    "install:all": "npm install && npm --prefix client install"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "@vercel/blob": "2.6.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,21 @@
+MONNY NATURALS — DYNAMIC BEST SELLER + MOTION UPDATE
+
+Best Sellers:
+- descriptions are shortened by default
+- desktop: full description reveals smoothly on mouse hover/focus
+- mobile/tablet: tap the description control to expand/collapse
+- hover adds premium lift, image zoom and soft emphasis without reloading
+
+Website motion:
+- route/page fade-in
+- scroll-triggered reveal animations using IntersectionObserver
+- staggered section/card entrances
+- smoother image, button, category and CTA transitions
+- reduced-motion accessibility support
+
+CMS/dynamic content retained:
+- hero copy/images/timing
+- products/prices/descriptions/stock
+- best-seller/featured/new flags
+- categories and homepage collection content
+- theme colors and store settings
