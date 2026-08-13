@@ -418,8 +418,8 @@
   },
   "about": {
     "heroEyebrow": "About Monny Naturals",
-    "heroTitle": "Beauty that begins with nature.",
-    "heroText": "We create warm, thoughtful beauty rituals designed to help you care for your skin and hair with confidence.",
+    "heroTitle": "My MonnyNaturals Story",
+    "heroText": "",
     "storyEyebrow": "Our story",
     "storyTitle": "My MonnyNaturals Story",
     "storyImage": "/uploads/about/monny-about.webp",
@@ -444,6 +444,7 @@
         "title": "Empowering You",
         "text": "Beauty care that supports confidence and your natural glow."
       }
-    ]
+    ],
+    "contentVersion": 20260813
   }
 }

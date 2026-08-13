@@ -113,8 +113,40 @@ function readLocalContent() {
   return JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
 }
 
+const ABOUT_CONTENT_VERSION = 20260813;
+
+function applyContentMigrations(sourceContent = {}) {
+  const bundled = upgradeBundledAssets(readLocalContent());
+  const source = upgradeBundledAssets(sourceContent || {});
+  const bundledAbout = bundled.about || {};
+  const sourceAbout = source.about || {};
+  const bundledVersion = Number(
+    bundledAbout.contentVersion || ABOUT_CONTENT_VERSION,
+  );
+  const sourceVersion = Number(sourceAbout.contentVersion || 0);
+
+  // Older CMS snapshots in Vercel Blob can otherwise keep overriding a newly
+  // deployed About story forever. Upgrade only stale snapshots. Once the
+  // current version is present, normal admin edits remain fully dynamic.
+  const about =
+    sourceVersion < bundledVersion
+      ? bundledAbout
+      : {
+          ...bundledAbout,
+          ...sourceAbout,
+          values: Array.isArray(sourceAbout.values)
+            ? sourceAbout.values
+            : bundledAbout.values,
+        };
+
+  return {
+    ...source,
+    about,
+  };
+}
+
 async function readContent() {
-  if (!blobConfigured()) return upgradeBundledAssets(readLocalContent());
+  if (!blobConfigured()) return applyContentMigrations(readLocalContent());
 
   try {
     const { list } = await import("@vercel/blob");
@@ -123,15 +155,15 @@ async function readContent() {
       .filter((blob) => blob.pathname.endsWith(".json"))
       .sort((a, b) => b.pathname.localeCompare(a.pathname))[0];
 
-    if (!latest) return upgradeBundledAssets(readLocalContent());
+    if (!latest) return applyContentMigrations(readLocalContent());
 
     const response = await fetch(latest.url, { cache: "no-store" });
     if (!response.ok)
       throw new Error(`Blob content fetch failed with ${response.status}`);
-    return upgradeBundledAssets(await response.json());
+    return applyContentMigrations(await response.json());
   } catch (error) {
     console.error("Could not read CMS content from Vercel Blob:", error);
-    return upgradeBundledAssets(readLocalContent());
+    return applyContentMigrations(readLocalContent());
   }
 }
 
@@ -142,19 +174,21 @@ function writeLocalContent(nextContent) {
 }
 
 async function writeContent(nextContent) {
+  const contentToStore = applyContentMigrations(nextContent);
+
   if (!blobConfigured()) {
     if (IS_VERCEL) {
       throw new Error(
         "Vercel Blob is not configured. Create a public Blob store in this Vercel project first.",
       );
     }
-    writeLocalContent(nextContent);
+    writeLocalContent(contentToStore);
     return;
   }
 
   const { put, list, del } = await import("@vercel/blob");
   const version = `${Date.now()}-${crypto.randomBytes(4).toString("hex")}.json`;
-  await put(`${BLOB_PREFIX}${version}`, JSON.stringify(nextContent), {
+  await put(`${BLOB_PREFIX}${version}`, JSON.stringify(contentToStore), {
     access: "public",
     contentType: "application/json",
     addRandomSuffix: false,
@@ -455,12 +489,10 @@ app.get("/api/content", async (_req, res) => {
 
 app.post("/api/admin/login", (req, res) => {
   if (IS_VERCEL && !HAS_ADMIN_CONFIG) {
-    return res
-      .status(503)
-      .json({
-        error:
-          "Admin credentials are not configured in Vercel Environment Variables.",
-      });
+    return res.status(503).json({
+      error:
+        "Admin credentials are not configured in Vercel Environment Variables.",
+    });
   }
   const { email, password } = req.body || {};
   if (
@@ -517,12 +549,10 @@ app.post("/api/admin/upload", requireAdmin, async (req, res) => {
     // Vercel Functions cap request bodies at 4.5 MB. The admin client compresses
     // large source images before sending them, keeping the encoded request safely below that limit.
     if (buffer.length > 2600 * 1024)
-      return res
-        .status(400)
-        .json({
-          error:
-            "Image is still too large after optimisation. Choose a smaller image.",
-        });
+      return res.status(400).json({
+        error:
+          "Image is still too large after optimisation. Choose a smaller image.",
+      });
 
     const cleanBase =
       path
@@ -552,12 +582,10 @@ app.post("/api/admin/upload", requireAdmin, async (req, res) => {
     }
 
     if (IS_VERCEL) {
-      return res
-        .status(503)
-        .json({
-          error:
-            "Vercel Blob is not configured. Create a public Blob store in this Vercel project first.",
-        });
+      return res.status(503).json({
+        error:
+          "Vercel Blob is not configured. Create a public Blob store in this Vercel project first.",
+      });
     }
 
     fs.mkdirSync(UPLOAD_DIR, { recursive: true });

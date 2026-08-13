@@ -41,7 +41,7 @@ export default function Hero() {
       ))}
 
       <div className="container hero-content">
-        <div className="hero-copy-panel">
+        <div key={index} className="hero-copy-panel">
           <span className="hero-kicker">
             <Sparkles size={15} />
             {activeSlide.kicker}
