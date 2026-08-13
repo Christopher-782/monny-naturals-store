@@ -281,7 +281,9 @@
     "email": "hello@monnynaturals.com",
     "location": "Lagos, Nigeria",
     "customerCareHours": "Monday – Saturday, 9am – 6pm",
-    "announcementText": "🌿 FREE SHIPPING ON ALL ORDERS ABOVE ₦30,000"
+    "announcementText": "🌿 FREE SHIPPING ON ALL ORDERS ABOVE ₦30,000",
+    "instagramUrl": "https://www.instagram.com/monnyhairskin?igsh=cnpmc2Q5bWd3dzZs&utm_source=qr",
+    "tiktokUrl": "https://www.tiktok.com/@monnynaturals?_r=1&_t=ZS-98la99XHkiD"
   },
   "testimonials": [
     {
@@ -413,5 +415,35 @@
     "gold": "#e2d326",
     "text": "#17301a",
     "pageBackground": "#fcfef3"
+  },
+  "about": {
+    "heroEyebrow": "About Monny Naturals",
+    "heroTitle": "Beauty that begins with nature.",
+    "heroText": "We create warm, thoughtful beauty rituals designed to help you care for your skin and hair with confidence.",
+    "storyEyebrow": "Our story",
+    "storyTitle": "My MonnyNaturals Story",
+    "storyImage": "/uploads/about/monny-about.webp",
+    "storyText": "If someone had told me years ago that I would one day build a skincare brand and teach others how to make soap, I probably would have smiled and said, \"That wasn't part of my plan.\"\n\nLike many great journeys, MonnyNaturals didn't begin as a business idea. It began as a parent's search for a solution.\n\nMy baby suffered from rashes and eczema. As a parent, there's a special kind of pain that comes from seeing your child uncomfortable and not knowing how to make it better. Every rash, every scratch, and every restless night reminded me that I needed to find products that would be gentle on delicate skin.\n\nI tried different products, hoping each new purchase would finally solve the problem. Some worked only for a short time. Others didn't seem to help at all. That experience opened my eyes to something important: not every skincare product is made with the same care or the same understanding of sensitive skin.\n\nInstead of giving up, I became curious.\n\nI wanted to understand what was inside the products people used every day. I began reading, researching, asking questions, and learning about ingredients, oils, and the science behind soap making. What started as a search for answers slowly became a passion for creating better skincare.\n\nThe more I learned, the more I realized that making soap is both a science and an art. It's not simply about mixing ingredients together. Every oil has a purpose. Every measurement matters. Every step affects the quality of the final product.\n\nMy first successful product was a baby skincare product.\n\nHolding that finished product in my hands brought a sense of accomplishment that is difficult to describe. It wasn't perfect because it looked beautiful. It was special because it represented hope. It reminded me that knowledge, patience, and persistence could produce something that genuinely served families like mine.\n\nThat success also gave me confidence to keep learning.\n\nLooking back, I can honestly say that one of my biggest challenges wasn't finding customers. It was learning soap formulation.\n\nRecipes are easy to copy.\nUnderstanding why a recipe works is much harder.\n\nThere were moments when I felt overwhelmed by unfamiliar terms, percentages, and calculations. I discovered that changing one ingredient could affect hardness, lather, conditioning, curing time, or the overall feel of the soap. Every batch became a lesson.\n\nSometimes the results were encouraging.\n\nSometimes they taught me what not to do.",
+    "closingText": "WELCOME TO THE WORLD OF NATURE.",
+    "ctaLabel": "Explore the collection",
+    "ctaLink": "/products",
+    "values": [
+      {
+        "title": "Natural Ingredients",
+        "text": "Nature-inspired formulas and carefully selected ingredients."
+      },
+      {
+        "title": "Sustainable Beauty",
+        "text": "Thoughtful choices designed with people and the planet in mind."
+      },
+      {
+        "title": "Cruelty Free",
+        "text": "Compassion is part of the standard, never an afterthought."
+      },
+      {
+        "title": "Empowering You",
+        "text": "Beauty care that supports confidence and your natural glow."
+      }
+    ]
   }
 }
