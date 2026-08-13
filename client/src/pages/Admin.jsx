@@ -242,9 +242,6 @@ function Login({ onLogin }) {
         <button className="btn btn-dark" disabled={busy}>
           {busy ? "Signing in…" : "Sign in"}
         </button>
-        <small>
-          Admin credentials are configured in the server <code>.env</code> file.
-        </small>
       </form>
     </main>
   );
