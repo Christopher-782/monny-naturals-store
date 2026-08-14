@@ -242,6 +242,9 @@ function Login({ onLogin }) {
         <button className="btn btn-dark" disabled={busy}>
           {busy ? "Signing in…" : "Sign in"}
         </button>
+        <small>
+          Admin credentials are configured in the server <code>.env</code> file.
+        </small>
       </form>
     </main>
   );
@@ -415,7 +418,7 @@ function ProductEditor({
 }
 
 export default function Admin() {
-  const { content, refreshContent } = useContent();
+  const { content, publishContent } = useContent();
   const [token, setToken] = useState(
     () => localStorage.getItem(TOKEN_KEY) || "",
   );
@@ -524,8 +527,9 @@ export default function Admin() {
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Save failed");
-      await refreshContent();
-      setMessage("Website changes published successfully.");
+      publishContent(data.content || draft);
+      setDraft(clone(data.content || draft));
+      setMessage("Website changes published successfully and are now live.");
     } catch (err) {
       if (String(err.message).toLowerCase().includes("session")) logout();
       else setError(err.message);
@@ -1555,6 +1559,18 @@ export default function Admin() {
 
               <div className="admin-subsection">
                 <h3>About hero</h3>
+                <div className="admin-media-grid two">
+                  <MediaControl
+                    title="About hero banner"
+                    image={draft.about?.heroImage}
+                    busy={busyKey === "about-hero"}
+                    onUpload={(payload) =>
+                      uploadImage(payload, "about-hero", (url) =>
+                        setAbout("heroImage", url),
+                      )
+                    }
+                  />
+                </div>
                 <div className="admin-form-grid admin-form-card">
                   <label>
                     Eyebrow

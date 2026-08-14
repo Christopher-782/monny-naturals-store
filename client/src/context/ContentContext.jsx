@@ -1,4 +1,11 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import {
   products as fallbackProducts,
   categories as fallbackCategories,
@@ -48,12 +55,13 @@ const defaultHomepage = {
 const defaultAbout = {
   heroEyebrow: "About Monny Naturals",
   heroTitle: "My MonnyNaturals Story",
-  heroText: "",
+  heroText:
+    "What began as a parent's search for gentle care became a passion for creating thoughtful skincare and teaching the science and art of soap making.",
+  heroImage: "/uploads/about/monny-about-hero.webp",
   storyEyebrow: "Our story",
   storyTitle: "My MonnyNaturals Story",
   storyImage: "/uploads/about/monny-about.webp",
-  storyText:
-    "If someone had told me years ago that I would one day build a skincare brand and teach others how to make soap, I probably would have smiled and said, \"That wasn't part of my plan.\"\n\nLike many great journeys, MonnyNaturals didn't begin as a business idea. It began as a parent's search for a solution.\n\nMy baby suffered from rashes and eczema. As a parent, there's a special kind of pain that comes from seeing your child uncomfortable and not knowing how to make it better. Every rash, every scratch, and every restless night reminded me that I needed to find products that would be gentle on delicate skin.\n\nI tried different products, hoping each new purchase would finally solve the problem. Some worked only for a short time. Others didn't seem to help at all. That experience opened my eyes to something important: not every skincare product is made with the same care or the same understanding of sensitive skin.\n\nInstead of giving up, I became curious.\n\nI wanted to understand what was inside the products people used every day. I began reading, researching, asking questions, and learning about ingredients, oils, and the science behind soap making. What started as a search for answers slowly became a passion for creating better skincare.\n\nThe more I learned, the more I realized that making soap is both a science and an art. It's not simply about mixing ingredients together. Every oil has a purpose. Every measurement matters. Every step affects the quality of the final product.\n\nMy first successful product was a baby skincare product.\n\nHolding that finished product in my hands brought a sense of accomplishment that is difficult to describe. It wasn't perfect because it looked beautiful. It was special because it represented hope. It reminded me that knowledge, patience, and persistence could produce something that genuinely served families like mine.\n\nThat success also gave me confidence to keep learning.\n\nLooking back, I can honestly say that one of my biggest challenges wasn't finding customers. It was learning soap formulation.\n\nRecipes are easy to copy.\nUnderstanding why a recipe works is much harder.\n\nThere were moments when I felt overwhelmed by unfamiliar terms, percentages, and calculations. I discovered that changing one ingredient could affect hardness, lather, conditioning, curing time, or the overall feel of the soap. Every batch became a lesson.\n\nSometimes the results were encouraging.\n\nSometimes they taught me what not to do.",
+  storyText: "",
   closingText: "WELCOME TO THE WORLD OF NATURE.",
   ctaLabel: "Explore the collection",
   ctaLink: "/products",
@@ -75,7 +83,6 @@ const defaultAbout = {
       text: "Beauty care that supports confidence and your natural glow.",
     },
   ],
-  contentVersion: 20260813,
 };
 
 const fallbackBenefits = [
@@ -246,9 +253,10 @@ function normalizeContent(next = {}) {
     about: {
       ...defaultAbout,
       ...(next.about || {}),
-      values: Array.isArray(next.about?.values)
-        ? next.about.values
-        : defaultAbout.values,
+      values:
+        Array.isArray(next.about?.values) && next.about.values.length
+          ? next.about.values
+          : defaultAbout.values,
     },
   };
 }
@@ -272,22 +280,110 @@ export function ContentProvider({ children }) {
     );
   }, [content.theme]);
 
-  const refreshContent = async () => {
+  const applyContent = useCallback((next) => {
+    const normalized = normalizeContent(next);
+    setContent((current) => {
+      const incomingVersion = Number(normalized.contentVersion || 0);
+      const currentVersion = Number(current?.contentVersion || 0);
+      if (incomingVersion < currentVersion) return current;
+
+      const incomingUpdatedAt =
+        Date.parse(normalized.contentUpdatedAt || "") || 0;
+      const currentUpdatedAt = Date.parse(current?.contentUpdatedAt || "") || 0;
+      if (
+        incomingVersion === currentVersion &&
+        currentUpdatedAt &&
+        incomingUpdatedAt < currentUpdatedAt
+      ) {
+        return current;
+      }
+
+      return normalized;
+    });
+    setLoading(false);
+  }, []);
+
+  const refreshContent = useCallback(async () => {
     try {
-      const response = await fetch("/api/content", { cache: "no-store" });
+      const response = await fetch(`/api/content?ts=${Date.now()}`, {
+        cache: "no-store",
+        headers: { "Cache-Control": "no-cache" },
+      });
       if (!response.ok) throw new Error("Could not load content");
-      const next = await response.json();
-      setContent(normalizeContent(next));
+      applyContent(await response.json());
     } catch (error) {
       console.warn("Using bundled fallback content:", error.message);
-    } finally {
       setLoading(false);
     }
-  };
+  }, [applyContent]);
+
+  const publishContent = useCallback((next) => {
+    const normalized = normalizeContent(next);
+    setContent(normalized);
+    setLoading(false);
+
+    const message = {
+      type: "content-published",
+      at: Date.now(),
+      content: normalized,
+    };
+    try {
+      localStorage.setItem("monny_content_published", JSON.stringify(message));
+    } catch {}
+    try {
+      const channel = new BroadcastChannel("monny-cms");
+      channel.postMessage(message);
+      channel.close();
+    } catch {}
+  }, []);
 
   useEffect(() => {
+    try {
+      const saved = localStorage.getItem("monny_content_published");
+      if (saved) {
+        const message = JSON.parse(saved);
+        if (message?.content) applyContent(message.content);
+      }
+    } catch {}
+
     refreshContent();
-  }, []);
+
+    const handleFocus = () => refreshContent();
+    const handleVisibility = () => {
+      if (document.visibilityState === "visible") refreshContent();
+    };
+    const handleStorage = (event) => {
+      if (event.key !== "monny_content_published" || !event.newValue) return;
+      try {
+        const message = JSON.parse(event.newValue);
+        if (message?.content) applyContent(message.content);
+        else refreshContent();
+      } catch {
+        refreshContent();
+      }
+    };
+
+    let channel;
+    try {
+      channel = new BroadcastChannel("monny-cms");
+      channel.onmessage = (event) => {
+        if (event.data?.type !== "content-published") return;
+        if (event.data?.content) applyContent(event.data.content);
+        else refreshContent();
+      };
+    } catch {}
+
+    window.addEventListener("focus", handleFocus);
+    window.addEventListener("storage", handleStorage);
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      window.removeEventListener("focus", handleFocus);
+      window.removeEventListener("storage", handleStorage);
+      document.removeEventListener("visibilitychange", handleVisibility);
+      channel?.close();
+    };
+  }, [applyContent, refreshContent]);
 
   const value = useMemo(
     () => ({
@@ -304,8 +400,9 @@ export function ContentProvider({ children }) {
       theme: content.theme || defaultTheme,
       loading,
       refreshContent,
+      publishContent,
     }),
-    [content, loading],
+    [content, loading, publishContent, refreshContent],
   );
 
   return (

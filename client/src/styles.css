@@ -1783,21 +1783,31 @@ p {
 
 /* about */
 .about-hero {
-  min-height: 420px;
-  display: flex;
-  align-items: center;
-  color: white;
-  background:
-    linear-gradient(90deg, rgba(11, 39, 23, 0.9), rgba(16, 55, 32, 0.48)),
-    url("https://images.unsplash.com/photo-1596462502278-27bfdc403348?auto=format&fit=crop&w=1800&q=88")
-      center/cover;
+  width: 100%;
+  overflow: hidden;
+  background: var(--beige);
 }
-.about-hero h1 {
+.about-hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 1;
+  object-fit: cover;
+  object-position: center;
+}
+.about-hero-copy {
+  padding: 42px 0 4px;
+  text-align: center;
+}
+.about-hero-copy h1 {
+  max-width: 820px;
+  margin: 8px auto 12px;
+  color: var(--forest);
+}
+.about-hero-copy p {
   max-width: 760px;
-  margin: 7px 0 14px;
-}
-.about-hero p {
-  max-width: 660px;
+  margin: 0 auto;
+  color: #616b61;
   font-size: 1rem;
 }
 .about-story {
@@ -1805,7 +1815,7 @@ p {
   grid-template-columns: 1fr 1fr;
   gap: 58px;
   align-items: center;
-  padding: 74px 0;
+  padding: 64px 0 74px;
 }
 .about-story > img {
   height: 520px;
@@ -2141,6 +2151,9 @@ p {
   .about-story,
   .contact-grid {
     grid-template-columns: 1fr;
+  }
+  .about-hero-copy {
+    padding-top: 30px;
   }
   .main-image img {
     height: 540px;
@@ -4275,142 +4288,5 @@ select {
   .catalog-showcase-grid.has-overflow-product
     .catalog-showcase-card:nth-child(6) {
     transition: none !important;
-  }
-}
-
-/* =========================================================
-   Storefront motion refresh — restrained, premium, accessible
-   ========================================================= */
-.announcement-bar {
-  animation: topBarEnter 460ms var(--ease-soft) both;
-}
-.site-header {
-  animation: headerEnter 620ms var(--ease-premium) 70ms both;
-}
-
-@keyframes topBarEnter {
-  from {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes headerEnter {
-  from {
-    opacity: 0;
-    transform: translateY(-12px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Hero copy restarts its entrance when the active slide changes. */
-.hero-copy-panel {
-  animation: heroPanelEnter 720ms var(--ease-premium) both;
-}
-.hero-copy-panel > * {
-  animation: heroCopyEnter 640ms var(--ease-premium) both;
-}
-.hero-copy-panel > :nth-child(1) {
-  animation-delay: 90ms;
-}
-.hero-copy-panel > :nth-child(2) {
-  animation-delay: 150ms;
-}
-.hero-copy-panel > :nth-child(3) {
-  animation-delay: 210ms;
-}
-.hero-copy-panel > :nth-child(4) {
-  animation-delay: 270ms;
-}
-.hero-copy-panel > :nth-child(5) {
-  animation-delay: 330ms;
-}
-.hero-copy-panel > :nth-child(6) {
-  animation-delay: 390ms;
-}
-
-@keyframes heroPanelEnter {
-  from {
-    opacity: 0;
-    transform: translateY(18px) scale(0.985);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-@keyframes heroCopyEnter {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Scroll reveals use direction to make long editorial pages feel intentional. */
-.about-hero .container.motion-reveal {
-  translate: 0 24px;
-}
-.about-story > img.motion-reveal {
-  translate: -26px 14px;
-}
-.about-story-copy.motion-reveal {
-  translate: 26px 14px;
-}
-.about-story-copy > p.motion-reveal,
-.about-story-copy > .btn.motion-reveal {
-  translate: 0 14px;
-}
-.about-hero .container.motion-reveal.is-visible,
-.about-story > img.motion-reveal.is-visible,
-.about-story-copy.motion-reveal.is-visible,
-.about-story-copy > p.motion-reveal.is-visible,
-.about-story-copy > .btn.motion-reveal.is-visible {
-  translate: 0 0;
-}
-
-/* Small tactile lift across informational blocks, not only product cards. */
-.benefits-strip > div,
-.values-grid > div,
-.testimonial-card {
-  transition:
-    transform var(--transition-base),
-    box-shadow var(--transition-base),
-    border-color var(--transition-base),
-    background-color var(--transition-fast);
-}
-.benefits-strip > div:hover,
-.values-grid > div:hover,
-.testimonial-card:hover {
-  transform: translateY(-4px);
-}
-.values-grid > div:hover,
-.testimonial-card:hover {
-  box-shadow: 0 16px 34px rgba(24, 59, 37, 0.09);
-}
-
-/* Keep motion safe for visitors who request reduced motion. */
-@media (prefers-reduced-motion: reduce) {
-  .announcement-bar,
-  .site-header,
-  .hero-copy-panel,
-  .hero-copy-panel > * {
-    animation: none !important;
-  }
-  .about-hero .container.motion-reveal,
-  .about-story > img.motion-reveal,
-  .about-story-copy.motion-reveal,
-  .about-story-copy > p.motion-reveal,
-  .about-story-copy > .btn.motion-reveal {
-    translate: none !important;
   }
 }

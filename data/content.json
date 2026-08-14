@@ -419,7 +419,7 @@
   "about": {
     "heroEyebrow": "About Monny Naturals",
     "heroTitle": "My MonnyNaturals Story",
-    "heroText": "",
+    "heroText": "What began as a parent's search for gentle care became a passion for creating thoughtful skincare and teaching the science and art of soap making.",
     "storyEyebrow": "Our story",
     "storyTitle": "My MonnyNaturals Story",
     "storyImage": "/uploads/about/monny-about.webp",
@@ -445,6 +445,7 @@
         "text": "Beauty care that supports confidence and your natural glow."
       }
     ],
-    "contentVersion": 20260813
-  }
+    "heroImage": "/uploads/about/monny-about-hero.webp"
+  },
+  "contentVersion": 2
 }

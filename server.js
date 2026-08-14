@@ -113,40 +113,38 @@ function readLocalContent() {
   return JSON.parse(fs.readFileSync(DATA_FILE, "utf8"));
 }
 
-const ABOUT_CONTENT_VERSION = 20260813;
+function currentBundledContent() {
+  return upgradeBundledAssets(readLocalContent());
+}
 
-function applyContentMigrations(sourceContent = {}) {
-  const bundled = upgradeBundledAssets(readLocalContent());
-  const source = upgradeBundledAssets(sourceContent || {});
-  const bundledAbout = bundled.about || {};
-  const sourceAbout = source.about || {};
-  const bundledVersion = Number(
-    bundledAbout.contentVersion || ABOUT_CONTENT_VERSION,
-  );
-  const sourceVersion = Number(sourceAbout.contentVersion || 0);
+function migrateStoredContent(storedContent) {
+  const bundled = currentBundledContent();
+  const stored = upgradeBundledAssets(storedContent || {});
+  const bundledVersion = Number(bundled.contentVersion || 1);
+  const storedVersion = Number(stored.contentVersion || 0);
 
-  // Older CMS snapshots in Vercel Blob can otherwise keep overriding a newly
-  // deployed About story forever. Upgrade only stale snapshots. Once the
-  // current version is present, normal admin edits remain fully dynamic.
-  const about =
-    sourceVersion < bundledVersion
-      ? bundledAbout
-      : {
-          ...bundledAbout,
-          ...sourceAbout,
-          values: Array.isArray(sourceAbout.values)
-            ? sourceAbout.values
-            : bundledAbout.values,
-        };
+  if (storedVersion >= bundledVersion) return stored;
 
+  // A version bump is used only when deployed content must replace stale CMS
+  // defaults. Other live store data is preserved, while the About page and
+  // official social links are upgraded to the current bundled baseline.
   return {
-    ...source,
-    about,
+    ...bundled,
+    ...stored,
+    contentVersion: bundledVersion,
+    about: bundled.about,
+    store: {
+      ...(bundled.store || {}),
+      ...(stored.store || {}),
+      instagramUrl:
+        bundled.store?.instagramUrl || stored.store?.instagramUrl || "",
+      tiktokUrl: bundled.store?.tiktokUrl || stored.store?.tiktokUrl || "",
+    },
   };
 }
 
 async function readContent() {
-  if (!blobConfigured()) return applyContentMigrations(readLocalContent());
+  if (!blobConfigured()) return currentBundledContent();
 
   try {
     const { list } = await import("@vercel/blob");
@@ -155,15 +153,18 @@ async function readContent() {
       .filter((blob) => blob.pathname.endsWith(".json"))
       .sort((a, b) => b.pathname.localeCompare(a.pathname))[0];
 
-    if (!latest) return applyContentMigrations(readLocalContent());
+    if (!latest) return currentBundledContent();
 
-    const response = await fetch(latest.url, { cache: "no-store" });
+    const response = await fetch(latest.url, {
+      cache: "no-store",
+      headers: { "Cache-Control": "no-cache" },
+    });
     if (!response.ok)
       throw new Error(`Blob content fetch failed with ${response.status}`);
-    return applyContentMigrations(await response.json());
+    return migrateStoredContent(await response.json());
   } catch (error) {
     console.error("Could not read CMS content from Vercel Blob:", error);
-    return applyContentMigrations(readLocalContent());
+    return currentBundledContent();
   }
 }
 
@@ -174,21 +175,19 @@ function writeLocalContent(nextContent) {
 }
 
 async function writeContent(nextContent) {
-  const contentToStore = applyContentMigrations(nextContent);
-
   if (!blobConfigured()) {
     if (IS_VERCEL) {
       throw new Error(
         "Vercel Blob is not configured. Create a public Blob store in this Vercel project first.",
       );
     }
-    writeLocalContent(contentToStore);
+    writeLocalContent(nextContent);
     return;
   }
 
   const { put, list, del } = await import("@vercel/blob");
   const version = `${Date.now()}-${crypto.randomBytes(4).toString("hex")}.json`;
-  await put(`${BLOB_PREFIX}${version}`, JSON.stringify(contentToStore), {
+  await put(`${BLOB_PREFIX}${version}`, JSON.stringify(nextContent), {
     access: "public",
     contentType: "application/json",
     addRandomSuffix: false,
@@ -374,6 +373,7 @@ function validateAndNormalizeContent(input) {
     heroEyebrow: String(input.about?.heroEyebrow || ""),
     heroTitle: String(input.about?.heroTitle || ""),
     heroText: String(input.about?.heroText || ""),
+    heroImage: String(input.about?.heroImage || "").trim(),
     storyEyebrow: String(input.about?.storyEyebrow || ""),
     storyTitle: String(input.about?.storyTitle || ""),
     storyImage: String(input.about?.storyImage || "").trim(),
@@ -479,7 +479,13 @@ app.get("/api/health", (_req, res) => {
 
 app.get("/api/content", async (_req, res) => {
   try {
-    res.set("Cache-Control", "no-store");
+    res.set({
+      "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate",
+      "CDN-Cache-Control": "no-store",
+      "Vercel-CDN-Cache-Control": "no-store",
+      Pragma: "no-cache",
+      Expires: "0",
+    });
     res.json(await readContent());
   } catch (error) {
     console.error(error);
@@ -516,7 +522,13 @@ app.get("/api/admin/session", requireAdmin, (req, res) => {
 app.put("/api/admin/content", requireAdmin, async (req, res) => {
   try {
     const content = validateAndNormalizeContent(req.body);
+    content.contentUpdatedAt = new Date().toISOString();
     await writeContent(content);
+    res.set({
+      "Cache-Control": "no-store",
+      "CDN-Cache-Control": "no-store",
+      "Vercel-CDN-Cache-Control": "no-store",
+    });
     res.json({ ok: true, content });
   } catch (error) {
     console.error(error);
