@@ -36,6 +36,7 @@ function loadEnvFile() {
 
 loadEnvFile();
 
+const SITE_URL = String(process.env.SITE_URL || "https://www.monnynatural.com").replace(/\/+$/, "");
 const PORT = Number(process.env.PORT || 5000);
 const HAS_ADMIN_CONFIG = Boolean(
   process.env.ADMIN_EMAIL &&
@@ -456,6 +457,264 @@ function validateAndNormalizeContent(input) {
   };
 }
 
+
+function seoAbsoluteUrl(value, fallback = "/logo.webp") {
+  const input = String(value || fallback).trim();
+  if (/^https?:\/\//i.test(input)) return input;
+  return `${SITE_URL}${input.startsWith("/") ? input : `/${input}`}`;
+}
+
+function seoCleanText(value, max = 160) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (text.length <= max) return text;
+  return `${text.slice(0, Math.max(0, max - 1)).trimEnd()}…`;
+}
+
+function seoEscape(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
+function seoJson(value) {
+  return JSON.stringify(value).replace(/</g, "\\u003c");
+}
+
+function createSeoForRequest(req, content = {}) {
+  const pathName = req.path || "/";
+  const store = content.store || {};
+  const products = Array.isArray(content.products) ? content.products : [];
+  const categories = Array.isArray(content.categories) ? content.categories : [];
+  const heroSlides = Array.isArray(content.heroSlides) ? content.heroSlides : [];
+  const brand = store.brandName || "Monny Naturals";
+  const defaultImage = seoAbsoluteUrl(heroSlides[0]?.image || "/logo.webp");
+  const indexRobots = "index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1";
+  const base = {
+    title: "Monny Naturals | Natural Skincare & Haircare in Nigeria",
+    description:
+      "Shop Monny Naturals for natural skincare, haircare and body care products in Nigeria, with convenient WhatsApp ordering.",
+    canonicalPath: "/",
+    robots: indexRobots,
+    type: "website",
+    image: defaultImage,
+    structuredData: [
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: brand,
+        url: SITE_URL,
+        logo: seoAbsoluteUrl("/logo.webp"),
+        email: store.email || undefined,
+        sameAs: [store.instagramUrl, store.tiktokUrl].filter(Boolean),
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: brand,
+        url: SITE_URL,
+      },
+    ],
+  };
+
+  if (pathName === "/") return base;
+
+  if (pathName === "/products") {
+    return {
+      ...base,
+      title: `Natural Skincare & Haircare Products | ${brand}`,
+      description:
+        "Browse Monny Naturals skin and hair products, including handmade soaps, shower gels, oils, shampoo, hair butter and natural hair care essentials in Nigeria.",
+      canonicalPath: "/products",
+      robots: Object.keys(req.query || {}).length ? "noindex,follow" : indexRobots,
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        name: `Natural Skincare & Haircare Products | ${brand}`,
+        url: `${SITE_URL}/products`,
+        description: "Natural skincare and haircare products from Monny Naturals in Nigeria.",
+      },
+    };
+  }
+
+  const categoryMatch = pathName.match(/^\/category\/([^/]+)\/?$/);
+  if (categoryMatch) {
+    let categoryName = categoryMatch[1];
+    try {
+      categoryName = decodeURIComponent(categoryName);
+    } catch {}
+    const knownCategory = categories.find(
+      (item) => String(item?.name || "").toLowerCase() === categoryName.toLowerCase(),
+    );
+    const normalizedName = knownCategory?.name || categoryName;
+    const encoded = encodeURIComponent(normalizedName);
+    return {
+      ...base,
+      title: `${normalizedName} in Nigeria | ${brand}`,
+      description: seoCleanText(
+        `Shop ${normalizedName.toLowerCase()} from ${brand}. Explore natural beauty products made for everyday skin and hair care in Nigeria.`,
+      ),
+      canonicalPath: `/category/${encoded}`,
+      image: seoAbsoluteUrl(knownCategory?.image || defaultImage),
+      structuredData: [
+        {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          name: `${normalizedName} | ${brand}`,
+          url: `${SITE_URL}/category/${encoded}`,
+          description: `Shop ${normalizedName.toLowerCase()} from ${brand} in Nigeria.`,
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+            { "@type": "ListItem", position: 2, name: "Products", item: `${SITE_URL}/products` },
+            { "@type": "ListItem", position: 3, name: normalizedName, item: `${SITE_URL}/category/${encoded}` },
+          ],
+        },
+      ],
+    };
+  }
+
+  const productMatch = pathName.match(/^\/products\/([^/]+)\/?$/);
+  if (productMatch) {
+    let productId = productMatch[1];
+    try {
+      productId = decodeURIComponent(productId);
+    } catch {}
+    const product = products.find((item) => String(item?.id) === String(productId));
+    if (!product) {
+      return {
+        ...base,
+        title: `Product Not Found | ${brand}`,
+        canonicalPath: pathName,
+        robots: "noindex,follow",
+        structuredData: null,
+      };
+    }
+    const canonicalPath = `/products/${encodeURIComponent(product.id)}`;
+    const image = seoAbsoluteUrl(product.image || "/logo.webp");
+    const stock = Number(product.stock) > 0;
+    return {
+      ...base,
+      title: `${product.name} in Nigeria | ${brand}`,
+      description: seoCleanText(
+        `${product.description || `Shop ${product.name} from ${brand}.`} Order online in Nigeria with easy WhatsApp checkout.`,
+      ),
+      canonicalPath,
+      type: "product",
+      image,
+      structuredData: [
+        {
+          "@context": "https://schema.org",
+          "@type": "Product",
+          name: product.name,
+          image: [image],
+          description: seoCleanText(product.description, 500),
+          sku: String(product.id),
+          category: product.category || undefined,
+          brand: { "@type": "Brand", name: brand },
+          offers: {
+            "@type": "Offer",
+            url: `${SITE_URL}${canonicalPath}`,
+            priceCurrency: "NGN",
+            price: Number(product.price || 0).toFixed(2),
+            availability: stock
+              ? "https://schema.org/InStock"
+              : "https://schema.org/OutOfStock",
+            itemCondition: "https://schema.org/NewCondition",
+          },
+        },
+        {
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+            { "@type": "ListItem", position: 2, name: "Products", item: `${SITE_URL}/products` },
+            { "@type": "ListItem", position: 3, name: product.name, item: `${SITE_URL}${canonicalPath}` },
+          ],
+        },
+      ],
+    };
+  }
+
+  if (pathName === "/about") {
+    return {
+      ...base,
+      title: `About ${brand} | Natural Beauty Products Nigeria`,
+      description:
+        "Discover the Monny Naturals story and our approach to thoughtful natural skincare, haircare, soap making and everyday beauty care in Nigeria.",
+      canonicalPath: "/about",
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "AboutPage",
+        name: `About ${brand}`,
+        url: `${SITE_URL}/about`,
+      },
+    };
+  }
+
+  if (pathName === "/contact") {
+    return {
+      ...base,
+      title: `Contact ${brand} | Orders & Customer Care`,
+      description:
+        "Contact Monny Naturals for product questions, WhatsApp orders, delivery information and customer care in Nigeria.",
+      canonicalPath: "/contact",
+      structuredData: {
+        "@context": "https://schema.org",
+        "@type": "ContactPage",
+        name: `Contact ${brand}`,
+        url: `${SITE_URL}/contact`,
+      },
+    };
+  }
+
+  if (["/cart", "/checkout", "/admin"].includes(pathName)) {
+    return {
+      ...base,
+      title: `${pathName === "/cart" ? "Shopping Cart" : pathName === "/checkout" ? "Checkout" : "Admin"} | ${brand}`,
+      canonicalPath: pathName,
+      robots: "noindex,nofollow",
+      structuredData: null,
+    };
+  }
+
+  return {
+    ...base,
+    title: `Page Not Found | ${brand}`,
+    canonicalPath: pathName,
+    robots: "noindex,follow",
+    structuredData: null,
+  };
+}
+
+function renderSeoBlock(seo, brand = "Monny Naturals") {
+  const canonical = `${SITE_URL}${seo.canonicalPath}`;
+  const structured = seo.structuredData
+    ? `\n    <script id="monny-seo-jsonld" type="application/ld+json">${seoJson(seo.structuredData)}</script>`
+    : "";
+  return `<!-- SEO:START -->
+    <meta name="description" content="${seoEscape(seo.description)}" />
+    <meta name="robots" content="${seoEscape(seo.robots)}" />
+    <meta name="googlebot" content="${seoEscape(seo.robots)}" />
+    <link rel="canonical" href="${seoEscape(canonical)}" />
+    <meta property="og:site_name" content="${seoEscape(brand)}" />
+    <meta property="og:type" content="${seoEscape(seo.type)}" />
+    <meta property="og:title" content="${seoEscape(seo.title)}" />
+    <meta property="og:description" content="${seoEscape(seo.description)}" />
+    <meta property="og:url" content="${seoEscape(canonical)}" />
+    <meta property="og:image" content="${seoEscape(seo.image)}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${seoEscape(seo.title)}" />
+    <meta name="twitter:description" content="${seoEscape(seo.description)}" />
+    <meta name="twitter:image" content="${seoEscape(seo.image)}" />${structured}
+    <!-- SEO:END -->`;
+}
+
 function extensionForMime(type) {
   return (
     {
@@ -633,8 +892,29 @@ if (serveProductionClient) {
   // Vercel serves public/** as static files before the Express function.
   // express.static remains useful for `npm start` outside Vercel.
   app.use(express.static(PUBLIC_DIR));
-  app.use((_req, res) => {
-    res.sendFile(path.join(PUBLIC_DIR, "index.html"));
+  app.use(async (req, res) => {
+    try {
+      const indexPath = path.join(PUBLIC_DIR, "index.html");
+      let html = fs.readFileSync(indexPath, "utf8");
+      const content = await readContent();
+      const seo = createSeoForRequest(req, content);
+      const brand = content?.store?.brandName || "Monny Naturals";
+      html = html.replace(
+        /<!-- SEO:START -->[\s\S]*?<!-- SEO:END -->/i,
+        renderSeoBlock(seo, brand),
+      );
+      html = html.replace(
+        /<title>[\s\S]*?<\/title>/i,
+        `<title>${seoEscape(seo.title)}</title>`,
+      );
+      if (seo.robots.startsWith("noindex")) {
+        res.set("X-Robots-Tag", seo.robots.replace(/,/g, ", "));
+      }
+      res.type("html").send(html);
+    } catch (error) {
+      console.error("SEO HTML render failed:", error);
+      res.sendFile(path.join(PUBLIC_DIR, "index.html"));
+    }
   });
 }
 

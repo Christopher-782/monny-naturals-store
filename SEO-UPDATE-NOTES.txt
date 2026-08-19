@@ -1,0 +1,31 @@
+MONNY NATURALS SEO UPDATE
+=========================
+Production site: https://www.monnynatural.com
+
+Added:
+- Page-specific SEO titles and meta descriptions
+- Canonical URLs
+- Open Graph and Twitter sharing metadata
+- Google-friendly robots directives
+- Product JSON-LD structured data with NGN price and stock availability
+- Breadcrumb structured data on product/category pages
+- Organization and WebSite structured data
+- Category SEO metadata
+- noindex handling for admin, cart, checkout, filtered product searches and 404 pages
+- client/public/robots.txt
+- client/public/sitemap.xml
+- Automatic sitemap generation before every Vite production build
+- Server-side SEO head injection for direct visits to React routes
+
+IMPORTANT AFTER DEPLOYMENT
+--------------------------
+1. Deploy the updated project to Vercel.
+2. Confirm these URLs load:
+   https://www.monnynatural.com/robots.txt
+   https://www.monnynatural.com/sitemap.xml
+3. In Google Search Console, verify monnynatural.com as a Domain property.
+4. Submit: https://www.monnynatural.com/sitemap.xml
+5. Use URL Inspection to request indexing for the homepage, /products, and important product pages.
+6. Use Google's Rich Results Test on several product URLs after deployment.
+
+No storefront design, cart logic, product content, or admin workflow was intentionally changed by this SEO update.

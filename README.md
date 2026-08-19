@@ -161,3 +161,19 @@ The homepage now includes two client-editable photo collections built from the s
 The optimized originals are stored under `client/public/uploads/catalog/` and are available through `/uploads/catalog/...`.
 
 To change any of these photos later, sign in to `/admin`, open **Homepage**, then use **Skin & hair collection sections**. Each card supports direct image upload or an image URL, and the section heading, description, linked category, and display names are editable too.
+
+## SEO setup
+
+The storefront includes production SEO support for `https://www.monnynatural.com`:
+
+- page-specific titles, descriptions, canonical URLs, Open Graph and Twitter metadata
+- `Product` structured data for product pages
+- `Organization` and `WebSite` structured data on the homepage
+- indexable category collection pages
+- `noindex` handling for admin, cart, checkout, filtered search URLs and 404s
+- `robots.txt`
+- an automatically generated `sitemap.xml` during every client production build
+
+After deploying, add `https://www.monnynatural.com/sitemap.xml` in Google Search Console and request indexing for the homepage and main product/catalog pages.
+
+If the production domain changes, update `SITE_URL` in `client/src/components/SeoManager.jsx`, `client/public/robots.txt`, and set the `SITE_URL` environment variable for sitemap generation.

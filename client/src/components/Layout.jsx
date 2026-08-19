@@ -7,8 +7,6 @@ import { useCart } from "../context/CartContext";
 
 const REVEAL_SELECTOR = [
   ".section-heading",
-  ".benefits-strip > div",
-  ".about-hero .container",
   ".category-card",
   ".catalog-showcase-head",
   ".catalog-showcase-card",
@@ -19,10 +17,10 @@ const REVEAL_SELECTOR = [
   ".testimonial-card",
   ".checkout-flow",
   ".newsletter",
+  ".about-hero",
+  ".about-hero-copy",
   ".about-story > img",
   ".about-story-copy",
-  ".about-story-copy > p",
-  ".about-story-copy > .btn",
   ".values-grid > div",
   ".page-hero.compact",
   ".catalog-toolbar",
@@ -30,7 +28,6 @@ const REVEAL_SELECTOR = [
   ".product-detail-grid",
   ".cart-layout",
   ".checkout-layout",
-  ".contact-grid > *",
 ].join(",");
 
 export default function Layout() {
